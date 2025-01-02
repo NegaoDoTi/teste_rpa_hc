@@ -1,0 +1,3 @@
+selenium
+pymongo
+webdriver-manager

@@ -1,4 +1,5 @@
-from utils.config_driver import Driver, ChromeWebDriver
+from utils.config_driver import Driver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from robot.pages.search_page import SearchPage
 from robot.pages.python_page import PythonPage
 from utils.manage_files import ManageFiles
@@ -9,7 +10,7 @@ import logging
 class Robot:
     
     def __init__(self):
-        self.driver:ChromeWebDriver
+        self.driver:WebDriver
         self.manage_files = ManageFiles()
         
     def start(self) -> None:
@@ -46,6 +47,13 @@ class Robot:
             download_python = self.python_page.download_version()
             if download_python["error"] == True:
                 logging.error(f'{download_python["type"]}, {download_python["data"]}')
+                return
+            
+            url = download_python["url"]
+            
+            download_file = self.manage_files.script_download_file(url)
+            if download_file["error"] == True:
+                logging.error(f'{download_file["type"]}, {download_file["data"]}')
                 return
             
             verify_download = self.manage_files.verify_download()

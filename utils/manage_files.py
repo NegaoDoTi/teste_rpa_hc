@@ -1,6 +1,7 @@
 from time import time, sleep
 from pathlib import Path
 from traceback import format_exc
+from requests import get
 
 class ManageFiles:
     
@@ -37,6 +38,21 @@ class ManageFiles:
         except Exception:
             return {"error" : True, "type" : "Erro inesperado ao realizar Download do python", "data" : f"{format_exc()}"}
         
+    def script_download_file(self, url:str) -> dict:
+        try:
+            download = get(url=url, stream=True)
+            download.raise_for_status()
+            
+            with open(f"{self.download_path}/python_windows_64bits.exe", "wb") as file_exe:
+                for chunk in download.iter_content(chunk_size=8192):
+                    if chunk:
+                        file_exe.write(chunk)
+                        
+            return {"error" : False, "type" : "", "data" : ""}
+            
+        except Exception:
+            return {"error" : True, "type" : "Erro inesperado ao baixar python", "data" : ""}
+    
     def infos(self) -> None:
         
         sleep(1)

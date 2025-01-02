@@ -1,11 +1,11 @@
-from utils.config_driver import ChromeWebDriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from traceback import format_exc
 from utils.waits import Waits
 
 class PythonPage:
     
-    def __init__(self, driver:ChromeWebDriver):
-        self._driver:ChromeWebDriver = driver
+    def __init__(self, driver:WebDriver):
+        self._driver:WebDriver = driver
         self._waits:Waits = Waits(self._driver)
         
     def search_version(self) -> dict:
@@ -43,10 +43,12 @@ class PythonPage:
         try:
             all_version = self._waits.wait_visibility_all({"css_selector" : 'div[id="content"] div[class="container"] table tr td:nth-child(1) a'})
             
+            url = ""
+            
             for version in all_version:
                 
                 if version.text == "Windows installer (64-bit)":
-                    version.click()
+                    return {"error" : False, "type" : "", "data" : "", "url" : f'{version.get_attribute("href")}'}
                     break
             else:
                 return {"error" : True, "type" : "Erro versão de Windows 64 Bits não encontrada!", "data" : "Erro versão de Windows 64 Bits não encontrada!"}
@@ -54,5 +56,5 @@ class PythonPage:
             return {"error" : False, "type" : "", "data" : ""}
         
         except Exception:
-            return {"error" : True, "type" : "Erro inesperado ao fazer download o python", "data" : f"{format_exc()}"}    
+            return {"error" : True, "type" : "Erro inesperado ao encontrar url do python 64 bits windows", "data" : f"{format_exc()}"}
                 

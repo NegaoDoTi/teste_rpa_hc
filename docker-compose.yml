@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    container_name: mongodb-robot
+    networks:
+      - robot-network
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    restart: always
+    ports:
+      - 4444:4444
+    volumes:
+      - /dev/shm:/dev/shm
+    container_name: selenium-chrome
+    networks:
+      - robot-network
+
+  robot:
+    build: .
+    depends_on:
+      - mongo
+      - selenium
+    volumes:
+      - .:/robot
+      - ./downloads:/robot/downloads
+    command: ["sh", "-c", "./wait-for-it.sh selenium:4444 -- python run.py"]
+    container_name: robot-python
+    networks:
+      - robot-network
+
+networks:
+  robot-network:
+    driver: bridge

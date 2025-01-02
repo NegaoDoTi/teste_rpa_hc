@@ -1,16 +1,17 @@
-from utils.config_driver import ChromeWebDriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.keys import Keys
 from traceback import format_exc
 from utils.waits import Waits
 
 class SearchPage:
-    def __init__(self, driver:ChromeWebDriver):
-        self._driver:ChromeWebDriver = driver
+    def __init__(self, driver:WebDriver):
+        self._driver:WebDriver = driver
         self._waits:Waits = Waits(self._driver)
         
     def search(self) -> dict:
         try:
             self._driver.get('https://www.google.com.br/')
+            print("Acesei o site!")
             
             textarea = self._waits.wait_visibility({"css_selector" : 'textarea[title="Pesquisar"]'})
             textarea.send_keys("baixar Python")
