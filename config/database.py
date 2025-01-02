@@ -1,13 +1,13 @@
 from datetime import datetime
 from pymongo import MongoClient
 from bson import ObjectId
-from config.config import config_env, env
+from config.config import MONGO_URL, MONGO_DATABASE
 
 
 class Database:
     def __init__(self):
-        self.client = MongoClient(config_env['db_mongo'][env]['url'])
-        self.db = self.client[config_env['db_mongo'][env]['database']]
+        self.client = MongoClient(MONGO_URL)
+        self.db = self.client[MONGO_DATABASE]
 
     def insert(self, element, collection_name):
         element["created_at"] = datetime.now()
