@@ -3,12 +3,21 @@ from traceback import format_exc
 from utils.waits import Waits
 
 class PythonPage:
+    """Classe responsavel pela Pagina oficial do Python
+    """
     
     def __init__(self, driver:WebDriver):
+        
         self._driver:WebDriver = driver
         self._waits:Waits = Waits(self._driver)
         
     def search_version(self) -> dict:
+        """Está função efetua busta da versão do Python 3.11.9
+
+        Returns:
+            dict: {bool, str, str}
+        """
+        
         try:
             search_input = self._waits.wait_visibility({"css_selector" : 'input[id="id-search-field"]'})
             search_input.send_keys("3.11.9")
@@ -22,6 +31,12 @@ class PythonPage:
             return {"error" : True, "type" : "Erro ao pesquisar versão do Python", "data" : f"{format_exc()}"}
         
     def open_page_version(self) -> dict:
+        """Efetura a busca da pagina da versão correta do Python
+
+        Returns:
+            dict: {bool, str, str}
+        """
+        
         try:
             
             versions = self._waits.wait_visibility_all({"css_selector" : 'ul[class="list-recent-events menu"] h3 a'})
@@ -40,6 +55,12 @@ class PythonPage:
             return {'error' : True, "type" : "Erro inesperado ao abrir tela da versão do python", "data" : f"{format_exc()}"}
         
     def download_version(self) -> dict:
+        """Busca a url de download da versão correta do Python!
+
+        Returns:
+            dict: {bool, str, str}
+        """
+        
         try:
             all_version = self._waits.wait_visibility_all({"css_selector" : 'div[id="content"] div[class="container"] table tr td:nth-child(1) a'})
             

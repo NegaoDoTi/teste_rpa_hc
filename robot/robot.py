@@ -8,13 +8,21 @@ from models.db_model import DBModel
 import logging
 
 class Robot:
+    """Classe por gerenciar e ordenar por partes da parte da automação
+    """
     
     def __init__(self):
         self.driver:WebDriver
         self.manage_files = ManageFiles()
         self.db_automation_logs = DBModel("automation_logs")
         
-    def start(self, id_job) -> None:
+    def start(self, id_job:str) -> None:
+        """Função responsavel por ordenar partes da automação
+
+        Args:
+            id_job (str): uma string uuid
+        """
+        
         try:
             self.driver = Driver().get_chrome_driver()
             if isinstance(self.driver, dict):

@@ -7,6 +7,8 @@ from uuid import uuid4
 logging.basicConfig(filename="robot.log", filemode="a", format='%(asctime)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 def run_robot():
+    """Cria o Job no banco de dados e inicia a Automação
+    """
     
     db_automation_logs = DBModel("automation_logs")
     

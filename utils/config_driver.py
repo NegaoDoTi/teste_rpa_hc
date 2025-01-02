@@ -1,26 +1,22 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from pathlib import Path
 from traceback import format_exc
 
 class Driver():
+    """Classe responsavel pro gerenciar driver selenium que o robo irá utilizar!
+    """
     
     def __init__(self):
         self.__driver:webdriver
         
-    def get_chrome_driver(self):
-        """Retorna um driver de navegador Chrome com configuraoes padrao.
-        
-        As configuraoes padrao para maximizar a janela do navegador
-        e configurar o diretorio padrao para salvar os arquivos e desativação
-        do prompt para download.
-        
-        Caso nao consiga retornar um driver, retorna um dicionario com 
-        as informaoes de erro.
+    def get_chrome_driver(self) -> webdriver.Remote | dict:
+        """Responsavel por conectar Python ao driver Selenium, e definir as opções 
+
+        Returns:
+            webdriver.Remote | dict: {bool, str, str}
         """
+        
         
         try:
         

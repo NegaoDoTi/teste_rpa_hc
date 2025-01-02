@@ -10,6 +10,8 @@ class ManageFiles:
         self.verify_path_exists()
 
     def verify_path_exists(self) -> None:
+        """Verificar se a pasta download existe, se não existir cria.
+        """
          
         if not self.download_path.exists():
             self.download_path.mkdir()
@@ -17,6 +19,15 @@ class ManageFiles:
         return
     
     def verify_download(self, timeout:int = 120) -> dict:
+        """Verifica se o download do exe python foi concluido!
+
+        Args:
+            timeout (int, optional): tempo limite de espera para conclusão do download. Defaults to 120.
+
+        Returns:
+            dict: {bool, str, str}
+        """
+        
         try:
             start = time()
             
@@ -39,6 +50,15 @@ class ManageFiles:
             return {"error" : True, "type" : "Erro inesperado ao realizar Download do python", "data" : f"{format_exc()}"}
         
     def script_download_file(self, url:str) -> dict:
+        """Responsavel por fazer download do exe do Python
+
+        Args:
+            url (str): URL de download do site oficial do Python
+
+        Returns:
+            dict: {bool, str, str}
+        """
+        
         try:
             download = get(url=url, stream=True)
             download.raise_for_status()
@@ -54,6 +74,12 @@ class ManageFiles:
             return {"error" : True, "type" : "Erro inesperado ao baixar python", "data" : ""}
     
     def infos(self) -> dict:
+        """Exibe nome do arquivo do exe Python e o caminho completo do arquivo
+
+        Returns:
+            dict: {bool, str, str, str, str}
+        """
+        
         try:
             sleep(1)
             
