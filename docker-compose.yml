@@ -11,6 +11,8 @@ services:
     ports:
       - 27017:27017
     container_name: mongodb-robot
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - robot-network
 
@@ -33,6 +35,9 @@ services:
     volumes:
       - .:/robot
       - ./downloads:/robot/downloads
+    environment:
+      - MONGO_URL=${MONGO_URL}
+      - MONGO_DATABASE=${MONGO_DATABASE}
     command: ["sh", "-c", "./wait-for-it.sh selenium:4444 -- python run.py"]
     container_name: robot-python
     networks:

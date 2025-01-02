@@ -53,12 +53,18 @@ class ManageFiles:
         except Exception:
             return {"error" : True, "type" : "Erro inesperado ao baixar python", "data" : ""}
     
-    def infos(self) -> None:
-        
-        sleep(1)
-        
-        for file in self.download_path.iterdir():
-            if file.is_file():
-                print(f"Nome do arquivo: {file.name}")
-                
-                print(f"Caminhos completo do arquivo: {file.absolute()}")
+    def infos(self) -> dict:
+        try:
+            sleep(1)
+            
+            for file in self.download_path.iterdir():
+                if file.is_file():
+                    name_file = file.name
+                    print(f"Nome do arquivo: {file.name}")
+                    
+                    path_file = file.absolute()
+                    print(f"Caminhos completo do arquivo: {file.absolute()}")
+                    
+            return {"error" : False, "type" : "", "data" : "", "name_file" : name_file, "path_file" : path_file}
+        except Exception:
+            return {"error" : True, "type" : "Erro inesperado ao buscar informaçoes do arquivo", "data" : f"{format_exc()}"}
