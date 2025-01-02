@@ -11,7 +11,6 @@ class SearchPage:
     def search(self) -> dict:
         try:
             self._driver.get('https://www.google.com.br/')
-            print("Acesei o site!")
             
             textarea = self._waits.wait_visibility({"css_selector" : 'textarea[title="Pesquisar"]'})
             textarea.send_keys("baixar Python")

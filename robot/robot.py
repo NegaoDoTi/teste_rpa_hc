@@ -79,7 +79,7 @@ class Robot:
             self.db_automation_logs.update({"id_job" : id_job}, {"nome_arquivo" : f'{result["name_file"]}'})       
             self.db_automation_logs.update({"id_job" : id_job}, {"diretorio" : f'{result["path_file"]}'})
             
-            print("Conclui com suceso sem erros!")
+            print("Conclui com sucesso sem erros!")
             
             return        
             
