@@ -8,7 +8,7 @@ logging.basicConfig(filename="robot.log", filemode="a", format='%(asctime)s - %(
 
 def run_robot():
     
-    db_automation_logs = DBModel("automation_logs", True)
+    db_automation_logs = DBModel("automation_logs")
     
     now = datetime.now()
     
