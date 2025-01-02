@@ -9,7 +9,7 @@ Deve ter instalado na maquina Docker e Docker Compose
 Comandos
 
     1. Abra terminal dentro da pasta do projeto
-    2. Já com Docker e Docker Compose instaldos execute o comando "docker-compose build"
+    2. Já com Docker e Docker Compose instalados execute o comando "docker-compose build"
     3. Ainda com terminal aberto você deve digitar "docker-compose up --no-start"
 
 # Como executar o projeto
